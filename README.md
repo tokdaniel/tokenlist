@@ -15,6 +15,11 @@ A comprehensive TypeScript library for managing token lists with built-in valida
 npx create-tokenlist project-name
 ```
 
+#### Make sure everything is working, by running:
+```bash
+npm run list:validate
+```
+
 ## Next Steps
 
 After running the npx command to create your tokenlist project, you'll need to customize it to fit your specific requirements:
