@@ -1,11 +1,5 @@
 import type { TokenInfo } from "@uniswap/token-lists";
-import {
-	checksumAddress,
-	createPublicClient,
-	http,
-	isAddress,
-	zeroAddress,
-} from "viem";
+import { checksumAddress, isAddress } from "viem";
 import { tokenList } from "./tokenlist.json";
 import type {
 	AddressByChain,
@@ -363,7 +357,7 @@ export function getChainTokenList(
 		return tokenList.tokens.filter(
 			(t) =>
 				t.chainId === chainId &&
-				(tags.length === 0 || t.tags.some((tag) => tags.includes(tag))),
+				(tags.length === 0 || t.tags.some((tag) => tags.includes(tag as Tags))),
 		) as ListedToken[];
 	}
 	return [];
