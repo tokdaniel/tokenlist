@@ -114,5 +114,7 @@ export const existingChainIdArbitrary = fc.constantFrom(
 export const invalidChainIdArbitrary = fc.integer({ min: 1000000 });
 
 export const tagArbitrary = fc.array(
-  fc.constantFrom(...tokenList.tokens.flatMap((token) => token.tags || [])),
+  fc.constantFrom(
+    ...tokenList.tokens.flatMap((token) => ("tags" in token ? token.tags : [])),
+  ),
 );

@@ -34,9 +34,10 @@ describe("getChaintokenList", () => {
         const expectedTokens = tokenList.tokens.filter(
           (token) =>
             token.chainId === chainId &&
-            (tags.length > 0
-              ? token.tags.some((tag) => tags.includes(tag))
-              : true),
+            (tags.length === 0 ||
+              ("tags" in token &&
+                Array.isArray(token.tags) &&
+                token.tags.some((tag) => tags.includes(tag)))),
         );
 
         const result = getChainTokenList(chainId, tags);

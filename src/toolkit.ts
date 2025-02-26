@@ -357,7 +357,8 @@ export function getChainTokenList(
     return tokenList.tokens.filter(
       (t) =>
         t.chainId === chainId &&
-        (tags.length === 0 || t.tags.some((tag) => tags.includes(tag as Tags))),
+        (tags.length === 0 ||
+          ("tags" in t && t.tags.some((tag) => tags.includes(tag)))),
     ) as ListedToken[];
   }
   return [];
