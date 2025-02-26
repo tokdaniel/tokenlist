@@ -2,17 +2,17 @@ import type { TokenInfo } from "@uniswap/token-lists";
 import { checksumAddress, isAddress } from "viem";
 import { tokenList } from "./tokenlist.json";
 import type {
-	AddressByChain,
-	ChainId,
-	ListedToken,
-	SymbolsByChain,
-	Tags,
-	TokenAddressMap,
-	TokenAddressMapByChain,
-	TokensByChain,
-	TokenSymbolMap,
-	TokenSymbolMapByChain,
-	U2I,
+  AddressByChain,
+  ChainId,
+  ListedToken,
+  SymbolsByChain,
+  Tags,
+  TokenAddressMap,
+  TokenAddressMapByChain,
+  TokensByChain,
+  TokenSymbolMap,
+  TokenSymbolMapByChain,
+  U2I,
 } from "./types";
 
 /**
@@ -25,11 +25,11 @@ import type {
  * // Returns true.
  */
 export const isAddressEqual = (a: unknown, b: unknown) =>
-	typeof a === "string" &&
-	typeof b === "string" &&
-	isAddress(a, { strict: false }) &&
-	isAddress(b, { strict: false }) &&
-	a.toLowerCase() === b.toLowerCase();
+  typeof a === "string" &&
+  typeof b === "string" &&
+  isAddress(a, { strict: false }) &&
+  isAddress(b, { strict: false }) &&
+  a.toLowerCase() === b.toLowerCase();
 
 /**
  * Validates if the given parameter adheres to the Uniswap's {@link TokenInfo} interface.
@@ -37,20 +37,20 @@ export const isAddressEqual = (a: unknown, b: unknown) =>
  * @returns Returns true if the parameter is a valid Uniswap standard {@link TokenInfo} object.
  */
 export const isToken = (token: unknown): token is TokenInfo => {
-	if (typeof token !== "object" || !token) return false;
-	if (!("chainId" in token) || typeof token.chainId !== "number") return false;
-	if (
-		!("address" in token) ||
-		typeof token.address !== "string" ||
-		!isAddress(token.address, { strict: false })
-	)
-		return false;
-	if (!("name" in token) || typeof token.name !== "string") return false;
-	if (!("symbol" in token) || typeof token.symbol !== "string") return false;
-	if (!("decimals" in token) || typeof token.decimals !== "number")
-		return false;
+  if (typeof token !== "object" || !token) return false;
+  if (!("chainId" in token) || typeof token.chainId !== "number") return false;
+  if (
+    !("address" in token) ||
+    typeof token.address !== "string" ||
+    !isAddress(token.address, { strict: false })
+  )
+    return false;
+  if (!("name" in token) || typeof token.name !== "string") return false;
+  if (!("symbol" in token) || typeof token.symbol !== "string") return false;
+  if (!("decimals" in token) || typeof token.decimals !== "number")
+    return false;
 
-	return true;
+  return true;
 };
 
 /**
@@ -63,11 +63,11 @@ export const isToken = (token: unknown): token is TokenInfo => {
  * // Returns true if both tokens have the same chainId and address.
  */
 export const isTokenEqual = (a: unknown, b: unknown) => {
-	if (isToken(a) && isToken(b)) {
-		return a.chainId === b.chainId && isAddressEqual(a.address, b.address);
-	}
+  if (isToken(a) && isToken(b)) {
+    return a.chainId === b.chainId && isAddressEqual(a.address, b.address);
+  }
 
-	return false;
+  return false;
 };
 
 /**
@@ -76,11 +76,11 @@ export const isTokenEqual = (a: unknown, b: unknown) => {
  * @returns True if the token is listed.
  */
 export const isListedToken = (token: unknown): token is ListedToken =>
-	isToken(token) &&
-	Boolean(
-		token.chainId in tokenSymbolMap &&
-			token.symbol in tokenSymbolMap[token.chainId as ChainId],
-	);
+  isToken(token) &&
+  Boolean(
+    token.chainId in tokenSymbolMap &&
+      token.symbol in tokenSymbolMap[token.chainId as ChainId],
+  );
 
 /**
  * Generates a nested map with {@link ChainId} as key and address as secondary key.
@@ -89,16 +89,16 @@ export const isListedToken = (token: unknown): token is ListedToken =>
  * // Returns DAI token on Ethereum.
  */
 export const tokenAddressMap = tokenList.tokens.reduce((acc, token) => {
-	const { chainId, address } = token;
+  const { chainId, address } = token;
 
-	if (!acc[chainId]) {
-		acc[chainId] = {} as U2I<{ [C in ChainId]: TokenAddressMap<C> }[ChainId]>;
-	}
+  if (!acc[chainId]) {
+    acc[chainId] = {} as U2I<{ [C in ChainId]: TokenAddressMap<C> }[ChainId]>;
+  }
 
-	//@ts-ignore - Symbol type is too broad for this, thus typescript cannot infer, since chainId and address are not linked
-	acc[chainId][address] = token;
+  //@ts-ignore - Symbol type is too broad for this, thus typescript cannot infer, since chainId and address are not linked
+  acc[chainId][address] = token;
 
-	return acc;
+  return acc;
 }, {} as TokenAddressMapByChain);
 
 /**
@@ -113,47 +113,47 @@ export const tokenAddressMap = tokenList.tokens.reduce((acc, token) => {
  * // Returns USDC token on Ethereum, but the type will be a union of all possible tokens with the same addres.
  */
 export function getTokenByChainAndAddress<
-	C extends ChainId,
-	A extends AddressByChain<C>,
+  C extends ChainId,
+  A extends AddressByChain<C>,
 >(chainId: C, symbol: A): Extract<ListedToken, { chainId: C; address: A }>;
 
 export function getTokenByChainAndAddress<C extends ChainId>(
-	chainId: C,
-	address: unknown,
+  chainId: C,
+  address: unknown,
 ): Extract<ListedToken, { chainId: C }> | null;
 
 export function getTokenByChainAndAddress<A extends AddressByChain<ChainId>>(
-	chainId: unknown,
-	address: A,
+  chainId: unknown,
+  address: A,
 ): Extract<ListedToken, { address: A }> | null;
 
 export function getTokenByChainAndAddress(
-	chainId: unknown,
-	address: unknown,
+  chainId: unknown,
+  address: unknown,
 ): ListedToken | null;
 
 export function getTokenByChainAndAddress(
-	chainId: unknown,
-	address: unknown,
+  chainId: unknown,
+  address: unknown,
 ): ListedToken | null {
-	if (
-		typeof chainId === "number" &&
-		typeof address === "string" &&
-		chainId in tokenAddressMap &&
-		isAddress(address, { strict: false })
-	) {
-		const tokenMapByChain = tokenAddressMap[chainId as ChainId];
+  if (
+    typeof chainId === "number" &&
+    typeof address === "string" &&
+    chainId in tokenAddressMap &&
+    isAddress(address, { strict: false })
+  ) {
+    const tokenMapByChain = tokenAddressMap[chainId as ChainId];
 
-		const addr = checksumAddress(address);
+    const addr = checksumAddress(address);
 
-		if (addr in tokenMapByChain) {
-			return tokenMapByChain[
-				addr as keyof typeof tokenMapByChain
-			] as ListedToken;
-		}
-	}
+    if (addr in tokenMapByChain) {
+      return tokenMapByChain[
+        addr as keyof typeof tokenMapByChain
+      ] as ListedToken;
+    }
+  }
 
-	return null;
+  return null;
 }
 
 /**
@@ -168,63 +168,63 @@ export function getTokenByChainAndAddress(
  * // Returns USDC token on Ethereum, but the type will be a union of all possible tokens with the same addres.
  */
 export function getTokenByChainAndAddressCurried<C extends ChainId>(
-	chainId: C,
+  chainId: C,
 ): <A extends AddressByChain<C>>(
-	address: A,
+  address: A,
 ) => Extract<ListedToken, { chainId: C; address: A }>;
 
 export function getTokenByChainAndAddressCurried<C extends ChainId>(
-	chainId: C,
+  chainId: C,
 ): (address: unknown) => Extract<ListedToken, { chainId: C }> | null;
 
 export function getTokenByChainAndAddressCurried(
-	chainId: unknown,
+  chainId: unknown,
 ): <A extends AddressByChain<ChainId>>(
-	address: A,
+  address: A,
 ) => Extract<ListedToken, { address: A }> | null;
 
 export function getTokenByChainAndAddressCurried(
-	chainId: unknown,
+  chainId: unknown,
 ): (address: unknown) => ListedToken | null;
 
 // Implementation
 export function getTokenByChainAndAddressCurried(chainId: unknown) {
-	return <A extends AddressByChain<ChainId>>(
-		address: A,
-	): ListedToken | null => {
-		if (
-			typeof chainId === "number" &&
-			typeof address === "string" &&
-			chainId in tokenAddressMap &&
-			isAddress(address, { strict: false })
-		) {
-			const tokenMapByChain = tokenAddressMap[chainId as ChainId];
-			const addr = checksumAddress(address);
+  return <A extends AddressByChain<ChainId>>(
+    address: A,
+  ): ListedToken | null => {
+    if (
+      typeof chainId === "number" &&
+      typeof address === "string" &&
+      chainId in tokenAddressMap &&
+      isAddress(address, { strict: false })
+    ) {
+      const tokenMapByChain = tokenAddressMap[chainId as ChainId];
+      const addr = checksumAddress(address);
 
-			if (addr in tokenMapByChain) {
-				return tokenMapByChain[
-					addr as keyof typeof tokenMapByChain
-				] as ListedToken;
-			}
-		}
-		return null;
-	};
+      if (addr in tokenMapByChain) {
+        return tokenMapByChain[
+          addr as keyof typeof tokenMapByChain
+        ] as ListedToken;
+      }
+    }
+    return null;
+  };
 }
 
 /**
  * Generates a nested map with {@link ChainId} as key and {@link SymbolsByChain} as secondary key.
  */
 export const tokenSymbolMap = tokenList.tokens.reduce((acc, token) => {
-	const { chainId, symbol } = token;
+  const { chainId, symbol } = token;
 
-	if (!acc[chainId]) {
-		acc[chainId] = {} as U2I<{ [C in ChainId]: TokenSymbolMap<C> }[ChainId]>;
-	}
+  if (!acc[chainId]) {
+    acc[chainId] = {} as U2I<{ [C in ChainId]: TokenSymbolMap<C> }[ChainId]>;
+  }
 
-	//@ts-ignore - Symbol type is too broad for this, thus typescript cannot infer, since chainId and symbol are not linked
-	acc[chainId][symbol] = token;
+  //@ts-ignore - Symbol type is too broad for this, thus typescript cannot infer, since chainId and symbol are not linked
+  acc[chainId][symbol] = token;
 
-	return acc;
+  return acc;
 }, {} as TokenSymbolMapByChain);
 
 /**
@@ -240,41 +240,41 @@ export const tokenSymbolMap = tokenList.tokens.reduce((acc, token) => {
  * // Returns USDT token on Ethereum, but the type will be a union of all possible USDC tokens.
  */
 export function getTokenByChainAndSymbol<
-	C extends ChainId,
-	S extends SymbolsByChain<C>,
+  C extends ChainId,
+  S extends SymbolsByChain<C>,
 >(chainId: C, symbol: S): Extract<ListedToken, { chainId: C; symbol: S }>;
 
 export function getTokenByChainAndSymbol<C extends ChainId>(
-	chainId: C,
-	symbol: unknown,
+  chainId: C,
+  symbol: unknown,
 ): Extract<ListedToken, { chainId: C }> | null;
 
 export function getTokenByChainAndSymbol<S extends SymbolsByChain<ChainId>>(
-	chainId: unknown,
-	symbol: S,
+  chainId: unknown,
+  symbol: S,
 ): Extract<ListedToken, { symbol: S }> | null;
 
 export function getTokenByChainAndSymbol(
-	chainId: unknown,
-	symbol: unknown,
+  chainId: unknown,
+  symbol: unknown,
 ): ListedToken | null;
 
 export function getTokenByChainAndSymbol(chainId: unknown, symbol: unknown) {
-	if (
-		typeof chainId === "number" &&
-		typeof symbol === "string" &&
-		chainId in tokenSymbolMap
-	) {
-		const tokenMapByChain = tokenSymbolMap[chainId as ChainId];
+  if (
+    typeof chainId === "number" &&
+    typeof symbol === "string" &&
+    chainId in tokenSymbolMap
+  ) {
+    const tokenMapByChain = tokenSymbolMap[chainId as ChainId];
 
-		if (symbol in tokenMapByChain) {
-			return tokenMapByChain[
-				symbol as keyof typeof tokenMapByChain
-			] as ListedToken;
-		}
-	}
+    if (symbol in tokenMapByChain) {
+      return tokenMapByChain[
+        symbol as keyof typeof tokenMapByChain
+      ] as ListedToken;
+    }
+  }
 
-	return null;
+  return null;
 }
 
 /**
@@ -290,42 +290,42 @@ export function getTokenByChainAndSymbol(chainId: unknown, symbol: unknown) {
  * // Returns USDT token on Ethereum, but the type will be a union of all possible USDC tokens.
  */
 export function getTokenByChainAndSymbolCurried<C extends ChainId>(
-	chainId: C,
+  chainId: C,
 ): <S extends SymbolsByChain<C>>(
-	symbol: S,
+  symbol: S,
 ) => Extract<ListedToken, { chainId: C; symbol: S }>;
 
 export function getTokenByChainAndSymbolCurried<C extends ChainId>(
-	chainId: C,
+  chainId: C,
 ): (symbol: string) => Extract<ListedToken, { chainId: C }> | null;
 
 export function getTokenByChainAndSymbolCurried(
-	chainId: unknown,
+  chainId: unknown,
 ): <S extends SymbolsByChain<ChainId>>(
-	symbol: S,
+  symbol: S,
 ) => Extract<ListedToken, { symbol: S }> | null;
 
 export function getTokenByChainAndSymbolCurried(
-	chainId: unknown,
+  chainId: unknown,
 ): (symbol: unknown) => ListedToken | null;
 
 export function getTokenByChainAndSymbolCurried(chainId: unknown) {
-	return <S extends SymbolsByChain<ChainId>>(symbol: S): ListedToken | null => {
-		if (
-			typeof chainId === "number" &&
-			typeof symbol === "string" &&
-			chainId in tokenSymbolMap
-		) {
-			const tokenMapByChain = tokenSymbolMap[chainId as ChainId];
+  return <S extends SymbolsByChain<ChainId>>(symbol: S): ListedToken | null => {
+    if (
+      typeof chainId === "number" &&
+      typeof symbol === "string" &&
+      chainId in tokenSymbolMap
+    ) {
+      const tokenMapByChain = tokenSymbolMap[chainId as ChainId];
 
-			if (symbol in tokenMapByChain) {
-				return tokenMapByChain[
-					symbol as keyof typeof tokenMapByChain
-				] as ListedToken;
-			}
-		}
-		return null;
-	};
+      if (symbol in tokenMapByChain) {
+        return tokenMapByChain[
+          symbol as keyof typeof tokenMapByChain
+        ] as ListedToken;
+      }
+    }
+    return null;
+  };
 }
 
 /**
@@ -340,25 +340,25 @@ export function getTokenByChainAndSymbolCurried(chainId: unknown) {
  * // Returns all currency tokens for Ethereum chain.
  */
 export function getChainTokenList<C extends ChainId>(
-	chainId: C,
-	tags?: Tags[],
+  chainId: C,
+  tags?: Tags[],
 ): TokensByChain<ListedToken, C>[];
 
 export function getChainTokenList(
-	chainId: unknown,
-	tags?: Tags[],
+  chainId: unknown,
+  tags?: Tags[],
 ): ListedToken[];
 
 export function getChainTokenList(
-	chainId: unknown,
-	tags: Tags[] = [],
+  chainId: unknown,
+  tags: Tags[] = [],
 ): ListedToken[] {
-	if (typeof chainId === "number" && chainId in tokenSymbolMap) {
-		return tokenList.tokens.filter(
-			(t) =>
-				t.chainId === chainId &&
-				(tags.length === 0 || t.tags.some((tag) => tags.includes(tag as Tags))),
-		) as ListedToken[];
-	}
-	return [];
+  if (typeof chainId === "number" && chainId in tokenSymbolMap) {
+    return tokenList.tokens.filter(
+      (t) =>
+        t.chainId === chainId &&
+        (tags.length === 0 || t.tags.some((tag) => tags.includes(tag as Tags))),
+    ) as ListedToken[];
+  }
+  return [];
 }
