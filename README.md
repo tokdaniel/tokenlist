@@ -12,7 +12,7 @@ A comprehensive TypeScript library for managing token lists with built-in valida
 ## Installation
 
 ```bash
-npm install @tokdaniel/tokenlist
+npx create-tokenlist project-name
 ```
 
 ## API Reference
