@@ -33,6 +33,73 @@ After running the npx command to create your tokenlist project, you'll need to c
 
 Remember to thoroughly test your customized tokenlist before publishing to ensure it meets your specific needs and maintains the integrity of the original library.
 
+## CLI Usage
+
+The package includes a powerful CLI tool for managing your token list. You can use it to add/remove tokens and manage tags interactively.
+
+### Starting the CLI
+
+```bash
+npm run cli
+```
+
+### Available Commands
+
+The CLI provides the following options:
+
+1. **Add a token**
+   - Interactively add a new token to the list
+   - Required fields:
+     - Chain ID (1-255)
+     - Token address (0x-prefixed Ethereum address)
+     - Token name
+     - Token symbol
+     - Decimals (0-18)
+   - Optional fields:
+     - Logo URI
+     - Tags (select from existing tags using checkbox interface)
+
+2. **Remove a token**
+   - Search for tokens by symbol
+   - Select the specific token to remove from search results
+   - Automatically updates all references
+
+3. **Add a tag**
+   - Create a new tag with:
+     - Tag identifier (1-10 alphanumeric characters and underscores)
+     - Tag name (1-20 characters)
+     - Tag description (1-200 characters)
+   - Validates input according to schema rules
+   - Prevents duplicate tag identifiers
+
+4. **Remove tags**
+   - Multi-select interface to choose tags to remove
+   - Automatically removes selected tags from:
+     - The main tags registry
+     - Any tokens that were using those tags
+   - Provides feedback on the operation
+
+### Example Usage
+
+```bash
+# Start the CLI
+npm run cli
+
+# Choose "Add a token" and follow the prompts:
+> Enter chain ID: 1
+> Enter token address: 0x...
+> Enter token name: My Token
+> Enter token symbol: MTK
+> Enter decimals: 18
+> Enter logo URI (optional): https://...
+> Select tags (if any exist): [x] stablecoin [ ] defi
+
+# Choose "Add a tag" and follow the prompts:
+> Enter tag identifier: defi
+> Enter tag name: DeFi Token
+> Enter tag description: Tokens used in decentralized finance applications
+```
+
 ## API Reference
 
 ### Token Validation

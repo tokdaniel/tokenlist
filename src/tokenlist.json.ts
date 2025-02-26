@@ -2,7 +2,7 @@ import type { TokenList } from "@uniswap/token-lists";
 
 export const tokenList = {
 	name: "Example Token List",
-	timestamp: new Date().toISOString(),
+	timestamp: "2025-02-26T11:07:15.065Z",
 	version: {
 		major: 0,
 		minor: 0,
@@ -30,6 +30,6 @@ export const tokenList = {
 			tags: ["stablecoin"],
 		},
 	],
-} as const satisfies TokenList;
+} satisfies TokenList satisfies TokenList satisfies TokenList;
 
 export type TokenListType = typeof tokenList;
