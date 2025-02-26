@@ -1,4 +1,4 @@
-# @tokdaniel/tokenlist
+# @yourorg/yourlist
 
 A comprehensive TypeScript library for managing token lists with built-in validation and utilities. Built on top of the Uniswap token list standard.
 
@@ -110,7 +110,7 @@ npm run cli
 ### Token Validation
 
 ```typescript
-import { isToken, isListedToken } from '@tokdaniel/tokenlist';
+import { isToken, isListedToken } from '@yourorg/yourlist';
 
 // Validate if an object matches the TokenInfo interface
 isToken(tokenObject);
@@ -126,7 +126,7 @@ import {
   getTokenByChainAndAddress,
   getTokenByChainAndSymbol,
   getChainTokenList
-} from '@tokdaniel/tokenlist';
+} from '@yourorg/yourlist';
 
 // Get token by chain ID and address
 const token = getTokenByChainAndAddress(1, '0x...');
@@ -149,7 +149,7 @@ For functional programming enthusiasts, curried versions of the lookup functions
 import {
   getTokenByChainAndAddressCurried,
   getTokenByChainAndSymbolCurried
-} from '@tokdaniel/tokenlist';
+} from '@yourorg/yourlist';
 
 const getEthereumToken = getTokenByChainAndAddressCurried(1);
 const token = getEthereumToken('0x...');
@@ -161,7 +161,7 @@ const usdcToken = getEthereumTokenBySymbol('USDC');
 ### Address Utilities
 
 ```typescript
-import { isAddressEqual, isTokenEqual } from '@tokdaniel/tokenlist';
+import { isAddressEqual, isTokenEqual } from '@yourorg/yourlist';
 
 // Compare Ethereum addresses case-insensitively
 isAddressEqual(address1, address2);
