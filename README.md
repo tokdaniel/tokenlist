@@ -1,4 +1,4 @@
-# @yourorg/yourlist
+# Tokenlist Starterkit for creating Uniswap Tokenlist
 
 A comprehensive TypeScript library for managing token lists with built-in validation and utilities. Built on top of the Uniswap token list standard.
 
