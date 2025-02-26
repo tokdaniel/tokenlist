@@ -25,7 +25,7 @@ export const matchTokens = async (tokenlist: TokenListType) => {
 			}
 
 			const contract = getContract({
-				address: token.address,
+				address: token.address as `0x{string}`,
 				abi: erc20Abi,
 				client,
 			});

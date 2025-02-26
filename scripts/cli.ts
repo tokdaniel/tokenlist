@@ -248,10 +248,7 @@ async function addToken() {
 				message: "Enter chain ID:",
 				validate: (value) => {
 					const num = Number(value);
-					return !Number.isNaN(num) &&
-						Number.isInteger(num) &&
-						num > 0 &&
-						num < 255
+					return !Number.isNaN(num) && Number.isInteger(num) && num > 0
 						? true
 						: "Please enter a valid positive integer between 0-255";
 				},
