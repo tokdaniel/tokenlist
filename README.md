@@ -1,41 +1,19 @@
 # @tokdaniel/tokenlist
 
-A comprehensive TypeScript library for managing token lists with built-in validation, utilities, and CLI tools. Built on top of the Uniswap token list standard.
+A comprehensive TypeScript library for managing token lists with built-in validation and utilities. Built on top of the Uniswap token list standard.
 
 ## Features
 
 - 🔍 Token lookup by chain ID, address, or symbol
 - ✨ Type-safe token validation using Zod schemas
-- 🛠️ CLI tools for project setup and token management
-- 📦 Easy project bootstrapping with `npx tokenlist create`
-- 🎯 Interactive token addition wizard
 - 🔒 Type-safe utilities with full TypeScript support
+- 📝 Comprehensive token list management tools
 
 ## Installation
 
 ```bash
 npm install @tokdaniel/tokenlist
 ```
-
-## CLI Usage
-
-### Creating a New Project
-
-```bash
-npx tokenlist create my-tokenlist
-cd my-tokenlist
-npm install
-```
-
-### Adding New Tokens
-
-From within your project directory:
-
-```bash
-npm run token:add
-```
-
-This will start an interactive wizard that guides you through adding a new token to your list.
 
 ## API Reference
 
@@ -102,6 +80,38 @@ isAddressEqual(address1, address2);
 isTokenEqual(tokenA, tokenB);
 ```
 
+## Prerequisites
+
+- Node.js >= 18
+- npm >= 9
+
+## Token List Format
+
+Tokens follow the [Uniswap Token List](https://github.com/Uniswap/token-lists) standard:
+
+```typescript
+interface TokenInfo {
+  chainId: number;
+  address: string;
+  name: string;
+  symbol: string;
+  decimals: number;
+  logoURI?: string;
+  tags?: string[];
+  extensions?: Record<string, any>;
+}
+```
+
+### Validation Rules
+
+- `chainId`: Must be a positive integer
+- `address`: Must be a valid Ethereum address (0x-prefixed, 40 hex characters)
+- `name`: 1-60 characters, must contain non-whitespace characters
+- `symbol`: 1-20 characters, no whitespace
+- `decimals`: Integer between 0 and 255
+- `logoURI`: Optional, must be a valid URL if provided
+- `tags`: Optional, maximum 10 tags
+
 ## Development
 
 ### Setup
@@ -133,7 +143,6 @@ npm run format
 - `npm run list:validate` - Validate token list
 - `npm run list:build` - Build token list
 - `npm run list:bundle` - Bundle package for distribution
-- `npm run build:cli` - Build CLI tools
 
 ## Contributing
 
