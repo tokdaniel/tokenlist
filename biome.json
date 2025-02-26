@@ -22,8 +22,14 @@
     "rules": {
       "recommended": true,
       "correctness": {
-        "noUnusedImports": "error",
-        "noUnusedVariables": "error"
+        "noUnusedImports": {
+          "fix": "safe",
+          "level": "error"
+        },
+        "noUnusedVariables": {
+          "fix": "safe",
+          "level": "error"
+        }
       },
       "style": {
         "useConst": {
