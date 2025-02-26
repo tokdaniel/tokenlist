@@ -101,7 +101,7 @@ async function removeToken() {
 		const content = await fs.promises.readFile(tokenlistPath, "utf8");
 		const updatedContent = content.replace(
 			/export const tokenList = ({[\s\S]*?}) as const/,
-			`export const tokenList = ${newList} as const satisfies TokenList`,
+			`export const tokenList = ${newList} as const`,
 		);
 		await fs.promises.writeFile(tokenlistPath, updatedContent, "utf8");
 		console.log("Token removed successfully!");
@@ -159,7 +159,7 @@ async function addTag() {
 		const content = await fs.promises.readFile(tokenlistPath, "utf8");
 		const updatedContent = content.replace(
 			/export const tokenList = ({[\s\S]*?}) as const/,
-			`export const tokenList = ${newList} as const satisfies TokenList`,
+			`export const tokenList = ${newList} as const`,
 		);
 		await fs.promises.writeFile(tokenlistPath, updatedContent, "utf8");
 		console.log("Tag added successfully!");
@@ -309,7 +309,7 @@ async function addToken() {
 		const content = await fs.promises.readFile(tokenlistPath, "utf8");
 		const updatedContent = content.replace(
 			/export const tokenList = ({[\s\S]*?}) as const/,
-			`export const tokenList = ${newList} as const satisfies TokenList`,
+			`export const tokenList = ${newList} as const`,
 		);
 		await fs.promises.writeFile(tokenlistPath, updatedContent, "utf8");
 		console.log("Token added successfully!");
