@@ -5,10 +5,7 @@
 	"type": "module",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
-	"files": [
-		"dist",
-		"README.md"
-	],
+	"files": ["dist", "README.md"],
 	"scripts": {
 		"lint": "npx @biomejs/biome lint",
 		"format": "npx @biomejs/biome format . --write",
@@ -16,15 +13,11 @@
 		"list:build": "tsx ./scripts/index.ts",
 		"list:bundle": "npx tsup && npm run copy-tokenlist",
 		"copy-tokenlist": "shx cp ./*.tokenlist.json ./dist",
+		"build:cli": "tsx ./scripts/build-cli.ts",
 		"test": "jest",
 		"coverage": "jest --coverage"
 	},
-	"keywords": [
-		"tokens",
-		"tokenlist",
-		"ethereum",
-		"defi"
-	],
+	"keywords": ["tokens", "tokenlist", "ethereum", "defi"],
 	"author": "",
 	"license": "MIT",
 	"dependencies": {
@@ -35,6 +28,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@schema-hub/zod-error-formatter": "^0.0.7",
+		"@types/inquirer": "^9.0.7",
 		"@types/jest": "^29.5.14",
 		"@types/lodash": "^4.17.15",
 		"@types/node": "^22.13.5",
