@@ -24,9 +24,20 @@
       "correctness": {
         "noUnusedImports": "error",
         "noUnusedVariables": "error"
+      },
+      "style": {
+        "useConst": {
+          "level": "warn",
+          "fix": "unsafe"
+        },
+        "useTemplate": {
+          "level": "warn",
+          "fix": "safe"
+        }
       }
     },
-    "ignore": ["coverage", "dist"]
+
+    "ignore": ["coverage", "dist", "test"]
   },
   "javascript": {
     "formatter": {

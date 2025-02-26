@@ -4,7 +4,7 @@ import { safeParse } from "@schema-hub/zod-error-formatter";
 import { tokenList, type TokenListType } from "@/src/tokenlist.json";
 import { getStaticClient } from "@/config/network";
 import validationExceptions from "@/config/validation-exceptions";
-const x = "";
+
 export const matchTokens = async (tokenlist: TokenListType) => {
   const result = await Promise.all(
     tokenlist.tokens.map(async (token) => {
@@ -71,7 +71,7 @@ export const matchLogoUris = async (tokenlist: TokenListType) => {
         }
 
         return { [`${token.chainId}:${token.symbol}`]: "error" };
-      } catch (error) {
+      } catch {
         return { [`${token.chainId}:${token.symbol}`]: "error" };
       }
     }),

@@ -6,7 +6,6 @@ import { tokenList } from "@/src/tokenlist.json";
 import { updateTokenListVersion } from "./version";
 import { TOKENLIST_NAME } from "@/config/filenames";
 import TokenListSchema from "@/src/zod";
-import type { TokenList } from "@uniswap/token-lists";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -29,7 +28,7 @@ const run = async () => {
       path.resolve(__dirname, `../${TOKENLIST_NAME}`),
       JSON.stringify(updated, null, 2),
     );
-  } catch (e) {
+  } catch {
     console.log(`${TOKENLIST_NAME} not found, proceeding with current list.`);
   }
 

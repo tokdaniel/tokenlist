@@ -1,4 +1,4 @@
-import { createPublicClient, http, type Client } from "viem";
+import { createPublicClient, http } from "viem";
 import * as chains from "viem/chains";
 
 export const getStaticClient = (chainId: number) => {
