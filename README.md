@@ -55,11 +55,11 @@ The CLI provides the following options:
 1. **Add a token**
    - Interactively add a new token to the list
    - Required fields:
-     - Chain ID (1-255)
+     - Chain ID: search for a network name
      - Token address (0x-prefixed Ethereum address)
-     - Token name
-     - Token symbol
-     - Decimals (0-18)
+     - Token name (prefilled given a correct address)
+     - Token symbol (prefilled given a correct address)
+     - Decimals (0-18) (prefilled given a correct address)
    - Optional fields:
      - Logo URI
      - Tags (select from existing tags using checkbox interface)
