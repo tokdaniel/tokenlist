@@ -15,6 +15,24 @@ A comprehensive TypeScript library for managing token lists with built-in valida
 npx create-tokenlist project-name
 ```
 
+## Next Steps
+
+After running the npx command to create your tokenlist project, you'll need to customize it to fit your specific requirements:
+
+1. **Change the project name**: Update the `name` field in the `package.json` file to reflect your project's name.
+
+2. **Customize the token list**: Modify the token list in your project to include the tokens relevant to your use case.
+
+3. **Set up npm publishing**: To publish your bundled version on npm:
+   - Ensure you have an npm account and are logged in (`npm login`).
+   - Update the `version` field in `package.json` when making changes.
+   - Run `npm publish` to publish your package.
+   - Or create a repository, and set up a github action 
+
+4. **Configure CI/CD (optional)**: Set up a CI/CD pipeline to automate the build, test, and publish process (e.g [semantic-release](https://github.com/semantic-release/semantic-release))
+
+Remember to thoroughly test your customized tokenlist before publishing to ensure it meets your specific needs and maintains the integrity of the original library.
+
 ## API Reference
 
 ### Token Validation
