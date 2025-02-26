@@ -43,7 +43,7 @@ export const matchTokens = async (tokenlist: TokenListType) => {
             onchainDecimals: decimals,
           },
         };
-      } catch (error) {
+      } catch {
         return {
           success: false,
           values: {

@@ -324,7 +324,7 @@ async function addToken() {
   let tokenDetails: TokenDetails | null = null;
   try {
     tokenDetails = await fetchTokenDetails(selectedChain.id, address);
-  } catch (error) {
+  } catch {
     console.log("Could not fetch token details. Please enter them manually.");
   }
 
